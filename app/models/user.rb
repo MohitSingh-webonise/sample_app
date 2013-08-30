@@ -2,13 +2,13 @@ class User < ActiveRecord::Base
   attr_accessor :password, :password_confirmation
   before_create :create_remember_token
   before_save { self.email = email.downcase }
-  before_save :password_digest1
+  before_save :password_save_after_validation
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }, on: :save
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }
-  validate :valid_password
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }, on: :save
+  validates :password, length: { minimum: 6 }, on: :save
+  validate :valid_password, on: :save
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64
@@ -33,19 +33,23 @@ class User < ActiveRecord::Base
     end
   end
 
-  public
-  def password_digest1
+  def password_save_after_validation
     self.password_salt = BCrypt::Engine.generate_salt
     self.password_digest = password_hash = BCrypt::Engine.hash_secret(password, password_salt)
   end
 
+  public
   def self.authenticate(email,password)
-    user = find_by_email(email)
-    puts "================================================="
-    puts user.inspect
+    puts "================================================================================================="
     puts email.inspect
-    puts password.inspect
-    if user && user.password_digest == BCrypt::Engine.hash_secret(password,user.password_salt)
+    user = find_by_email(email)
+    puts user.inspect
+    salt = user.password_salt
+    pass = BCrypt::Engine.hash_secret(password,salt)
+    
+    puts pass.inspect
+    puts user.password_digest.inspect
+    if user && user.password_digest == pass #BCrypt::Engine.hash_secret(password,user.password_salt)
       user
     else
       nil
