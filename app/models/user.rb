@@ -1,14 +1,19 @@
 class User < ActiveRecord::Base
+  has_many :microposts, dependent: :destroy
   attr_accessor :password, :password_confirmation
   before_create :create_remember_token
   before_save { self.email = email.downcase }
   before_save :password_save_after_validation
 
-  validates :name, presence: true, length: { maximum: 50 }, on: :save
+  validates :name, presence: true, length: { maximum: 50 }, on: :create
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }, on: :save
-  validates :password, length: { minimum: 6 }, on: :save
-  validate :valid_password, on: :save
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }, on: :create
+  validates :password, length: { minimum: 6 }, on: :create
+  validate :valid_password, on: :create
+
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64
@@ -35,7 +40,7 @@ class User < ActiveRecord::Base
 
   def password_save_after_validation
     self.password_salt = BCrypt::Engine.generate_salt
-    self.password_digest = password_hash = BCrypt::Engine.hash_secret(password, password_salt)
+    self.password_digest = BCrypt::Engine.hash_secret(password, password_salt)
   end
 
   public
@@ -50,6 +55,8 @@ class User < ActiveRecord::Base
     puts pass.inspect
     puts user.password_digest.inspect
     if user && user.password_digest == pass #BCrypt::Engine.hash_secret(password,user.password_salt)
+      puts "Hello"
+      puts "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
       user
     else
       nil
