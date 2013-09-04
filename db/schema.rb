@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20130903055843) do
     t.boolean  "admin"
   end
 
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 
 end
