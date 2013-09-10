@@ -1,0 +1,24 @@
+.post
+  %h3= @post.content
+#num
+#comments
+  = render :partial => 'comment', :locals => {:record => @comments}
+#ajax
+#new_post
+%br/
+%br/
+.comment
+  = form_for :comment, url: comments_path, remote: true do |f|
+    %table
+      %thead
+        %tr
+          %td
+            = f.label :content, "Write a Comment ..."
+      %tbody
+        %tr
+          %td
+            = f.text_field :content
+        %tr
+          %td
+            = f.hidden_field :micropost_id, :value => @post.id
+            = f.hidden_field :name, :value => current_user.name

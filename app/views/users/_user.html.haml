@@ -1,0 +1,5 @@
+%li
+  = gravatar_for user
+  = link_to user.name, user
+  - if current_user.admin? && !corrent_user?(user)
+    = link_to "delete", user_path(user.id), method: :delete, data: { confirm: "You sure?" }

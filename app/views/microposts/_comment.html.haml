@@ -1,0 +1,10 @@
+.comments
+  - record.each do |f|
+    %label.well
+      = f.name
+      \:    
+      %span.text-info
+        = f.content
+      %span.muted
+        \     Posted :#{time_ago_in_words(f.created_at)} ago.
+    %br/

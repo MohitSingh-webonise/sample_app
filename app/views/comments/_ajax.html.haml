@@ -1,0 +1,9 @@
+.comments
+  %label.well
+    = record.name
+    \:    
+    %span.text-info
+      = record.content
+    %span.muted
+      \     Posted :#{time_ago_in_words(record.created_at)} ago.
+  %br/

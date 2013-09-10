@@ -1,0 +1,33 @@
+- provide(:title, "Edit user")
+%h1 Update your profile
+.row
+  .span6.offset3
+    = form_for(@user) do |f|
+      = render 'shared/error_messages', object: f.object
+      %table.table.table-striped
+        %tbody
+          %tr
+            %td
+              = f.label :name
+            %td
+              = f.text_field :name
+          %tr
+            %td
+              = f.label :email
+            %td
+              = f.text_field :email
+          %tr
+            %td
+              = f.label :password
+            %td
+              = f.password_field :password
+          %tr
+            %td
+              = f.label :password_confirmation, "Confirmation"
+            %td
+              = f.password_field :password_confirmation
+          %tr
+            %td
+            %td
+              = f.submit "Save changes", class: "btn btn-large btn-primary"
+              %a{:href => "http://gravatar.com/emails"} change
