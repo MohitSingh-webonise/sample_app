@@ -5,21 +5,30 @@
 	<div class="span6 offset3">
 		<%= form_for(@user) do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
-
-			<%= f.label :name %>
-			<%= f.text_field :name %>
-
-			<%= f.label :email %>
-			<%= f.text_field :email %>
-
-			<%= f.label :password %>
-			<%= f.password_field :password %>
-
-			<%= f.label :password_confirmation %>
-			<%= f.password_field :password_confirmation %>
-
-			<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+			 <table class="table table-striped">
+        <tbody>
+          <tr>
+          	<td> <%= f.label :name %> </td>
+          	<td> <%= f.text_field :name %> </td>
+          </tr>
+          <tr> 
+          	<td> <%= f.label :email %> </td>
+          	<td>	<%= f.text_field :email %> </td>
+          </tr> 
+          <tr>   
+          	<td> <%= f.label :password %> </td>
+          	<td> <%= f.password_field :password %> </td>
+          </tr>
+          <tr> 
+          	<td> <%= f.label :password_confirmation, "Confirmation" %> </td>
+          	<td> <%= f.password_field :password_confirmation %> </td>
+          </tr>
+          <tr> 
+            <td> </td>   
+          	<td> <%= f.submit "Save changes", class: "btn btn-large btn-primary" %><a href="http://gravatar.com/emails">change</a> </td>
+          </tr>
+        </tbody>    
+      </table>			
 		<%end%>
-		<a href="http://gravatar.com/emails">change</a>
 	</div>
 </div>

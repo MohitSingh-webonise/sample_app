@@ -1,0 +1,36 @@
+<div class="post">
+	<h3><%= @post.content %></h3>
+</div>
+<div id="num">
+	
+</div>
+<div id="comments">
+	<%= render :partial => 'comment', :locals => {:record => @comments} %>
+</div>
+<div id="ajax">
+	
+</div>
+<div id="new_post">
+</div>
+<br/><br/>
+<div class="comment">	
+	<%= form_for :comment, url: comments_path, remote: true do |f| %>
+	<table>
+		<thead>
+			<tr> 
+				<td> <%= f.label :content, "Write a Comment ..." %> </td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td> <%= f.text_field :content  %> </td>
+			</tr>
+			<tr>
+				<td> <%= f.hidden_field :micropost_id, :value => @post.id %>
+						 <%= f.hidden_field :name, :value => current_user.name %> </td>
+			</tr>
+			<%end%>
+		</tbody>	
+	</table>
+</div>
+

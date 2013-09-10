@@ -18,6 +18,11 @@ class MicropostsController < ApplicationController
     redirect_to root_path
   end
 
+  def show
+    @post = Micropost.find_by(id: params[:id])
+    @comments = Comment.where(micropost_id: params[:id]).order("created_at ASC")
+  end
+
   private 
 
   def micropost_params

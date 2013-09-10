@@ -1,5 +1,7 @@
 SampleApp::Application.routes.draw do
-  resources :microposts, only: [:create, :destroy]
+  # get "comments/show"
+  resources :comments, only: [:show, :create]
+  resources :microposts, only: [:create, :destroy, :show]
   resources :users do 
     member do
       get :following, :followers

@@ -1,0 +1,11 @@
+<div class="comments">
+<% record.each do |f| %>
+	<label class="well">
+		<%= f.name %>:&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="text-info"><%= f.content %>
+		</span>
+		<span class="muted">&nbsp;&nbsp;&nbsp;&nbsp; Posted :<%= time_ago_in_words(f.created_at) %> ago. 
+		</span>
+	</label><br/>
+<%end%>
+</div>
