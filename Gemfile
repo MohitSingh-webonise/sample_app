@@ -11,11 +11,19 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'yaml_db'
 gem "haml", "~> 4.0.3"
 gem "haml-rails"
+gem "debugger", "~> 1.6.1"
 
 group :development, :test do
    #gem 'sqlite3', '1.3.7'
-   gem 'mysql2'
-  gem 'rspec-rails', '2.13.1'
+  gem 'mysql2'
+  gem 'rails_best_practices'
+  gem 'rubocop', '0.9.0', require: false
+  gem 'rubocop-checkstyle_formatter', '0.0.6', require: false
+  gem 'flog', '4.3.0'
+  gem 'rspec-rails', '2.14.2'
+  gem 'factory_girl_rails', '4.0'
+  gem 'database_cleaner', '1.0.1'
+  gem 'brakeman', '2.6.2', require: false
 end
 
 group :test do
