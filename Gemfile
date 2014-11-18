@@ -17,8 +17,8 @@ group :development, :test do
    #gem 'sqlite3', '1.3.7'
   gem 'mysql2'
   gem 'rails_best_practices'
-  gem 'rubocop', '0.9.0', require: false
-  gem 'rubocop-checkstyle_formatter', '0.0.6', require: false
+  gem 'rubocop', require: false # , '0.27.0'
+  gem 'rubocop-checkstyle_formatter', require: false # , '0.0.6'
   gem 'flog', '4.3.0'
   gem 'rspec-rails', '2.14.2'
   gem 'factory_girl_rails', '4.0'
